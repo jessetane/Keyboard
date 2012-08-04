@@ -58,7 +58,7 @@ Keyboard.prototype = {
     this.meta = evt.metaKey;
   },
   emit: function emit(type, evt){
-    var listeners = this.listeners[this.lastKey];
+    var listeners = this.keys[this.lastKey];
     if (listeners) {
       for (var i=0; i < listeners.length; i++) {
         listeners[i](type, evt);
