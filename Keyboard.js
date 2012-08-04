@@ -1,21 +1,9 @@
 void function(){
 
-var whatKey = function(k){
-  // if ('char' in k) {
-  //   return function whatKey(e){
-  //     return (e.char || '').toLowerCase();
-  //   };
-  // }
-  if ('keyIdentifier' in k) {
-    return function whatKey(e){
-      return e.keyIdentifier.toLowerCase();
-    };
-  } else if ('charCode' in k) {
-    return function whatKey(e){
-      return (e.charCode || '').toLowerCase();
-    };
-  }
-}(document.createEvent('KeyboardEvent'));
+function whatKey(evt){
+  return String.fromCharCode(evt.charCode);
+}
+
 
 
 function Keyboard(view){
@@ -51,7 +39,7 @@ Keyboard.prototype = {
   constructor: Keyboard,
   update: function update(evt){
     this.lastKey = whatKey(evt);
-    this.lasyEvent = evt;
+    this.lastEvent = evt;
     this.ctrl = evt.ctrlKey;
     this.shift = evt.shiftKey;
     this.alt = evt.altKey;
@@ -76,13 +64,11 @@ Keyboard.prototype = {
       keys.forEach(function(key, index){
         var listeners = self.keys[key] || (self.keys[key] = []);
         listeners.push(function(type, evt){
-          if (type === 'down') {
-            if (events.length === index) {
-              events.push(evt);
-              if (index === keys.length - 1) {
-                listener.apply(self, events);
-                events.length = 0;
-              }
+          if (type === 'down' && events.length === index) {
+            events.push(evt);
+            if (index === keys.length - 1) {
+              listener.apply(self, events);
+              events.length = 0;
             }
           } else {
             events.length = 0;
