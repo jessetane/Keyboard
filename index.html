@@ -19,7 +19,7 @@ html
 { box-shadow: inset 0 0 20px 4px hsla(140, 100%, 50%, .7); }
 
 #bind
-{ font-size: 150%; text-align: center; box-shadow: inset 0 0 20px 4px hsla(300, 100%, 50%, .3); width: 300px; display: inline-block;
+{ font-size: 150%; text-align: center; box-shadow: inset 0 0 20px 4px hsla(300, 100%, 50%, .3); width: 400px; display: inline-block;
   padding: 15px; border-radius: 5px; line-height: 50px; height: 50px; }
 </style>
 <script>
@@ -57,11 +57,12 @@ keyboard.on('*', function(e){
     delete engaged[e.name];
     bind.textContent = Object.keys(engaged).join(' · ');
   }
-})
-// keyCode: 13
-// keyLocation: 3
-// keyIdentifier: "Enter"
-// name: "Shift Numpad Enter"
+});
+
+window.addEventListener('blur', function(e){
+  engaged = {};
+  bind.textContent = '';
+});
 </script>
   </body>
 </html>
