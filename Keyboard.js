@@ -11,7 +11,7 @@ var keys = {
     8: ['Backspace'],
     9: ['Tab'],
    12: ['Clear'],
-   13: ['Return'],
+   13: ['Enter'],
    16: ['Shift'],
    17: ['Control'],
    18: ['Alt'],
@@ -82,19 +82,19 @@ var keys = {
    92: ['Right Win'],
    93: ['Menu'],
    95: ['Sleep'],
-   96: ['Numpad 0', 'Numpad Insert'],
-   97: ['Numpad 1', 'Numpad End'],
-   98: ['Numpad 2', 'Numpad Down'],
-   99: ['Numpad 3', 'Numpad PageDown'],
-  100: ['Numpad 4', 'Numpad Left'],
-  101: ['Numpad 5', 'Numpad Clear'],
-  102: ['Numpad 6', 'Numpad Right'],
-  103: ['Numpad 7', 'Numpad Home'],
-  104: ['Numpad 8', 'Numpad Up'],
-  105: ['Numpad 9', 'Numpad PageUp'],
+   96: ['Numpad 0', 'Shift Numpad Insert'],
+   97: ['Numpad 1', 'Shift Numpad End'],
+   98: ['Numpad 2', 'Shift Numpad Down'],
+   99: ['Numpad 3', 'Shift Numpad PageDown'],
+  100: ['Numpad 4', 'Shift Numpad Left'],
+  101: ['Numpad 5', 'Shift Numpad Clear'],
+  102: ['Numpad 6', 'Shift Numpad Right'],
+  103: ['Numpad 7', 'Shift Numpad Home'],
+  104: ['Numpad 8', 'Shift Numpad Up'],
+  105: ['Numpad 9', 'Shift Numpad PageUp'],
   106: ['Numpad *', 'Shift Numpad *'],
   107: ['Numpad +', 'Shift Numpad +'],
-  108: ['Numpad Separator', 'Numpad '],
+  108: ['Numpad Enter', 'Shift Numpad Enter'],
   109: ['Numpad -', 'Shift Numpad -'],
   110: ['Numpad .', 'Numpad Delete'],
   111: ['Numpad /', 'Shift Numpad /'],
@@ -174,27 +174,35 @@ var keys = {
 };
 
 var shiftNumpad = {
- 33: 105,
- 34: 99,
- 35: 97,
- 36: 103,
- 37: 100,
- 38: 104,
- 39: 102,
- 40: 98,
- 45: 96,
+  12: 101,
+  13: 108,
+  33: 105,
+  34: 99,
+  35: 97,
+  36: 103,
+  37: 100,
+  38: 104,
+  39: 102,
+  40: 98,
+  45: 96,
 }
 
 function whatKey(evt){
   var key = keys[evt.keyCode];
   if (key) {
     if (evt.shiftKey) {
+      if (evt.keyLocation === 3) {
+        var mapped = shiftNumpad[evt.keyCode];
+        if (mapped) {
+          return keys[mapped][1];
+        }
+      }
       return key[+evt.shiftKey] || key[0];
     } else {
       if (evt.keyLocation === 3) {
         var mapped = shiftNumpad[evt.keyCode];
         if (mapped) {
-          return keys[mapped][1];
+          return keys[mapped][evt.keyCode === 13 ? 0 : 1];
         }
       }
       return key[0];
