@@ -2,12 +2,12 @@ void function(){
 
 var keys = {
     0: ['Unknown'],
-    1: ['Mouse 1'],
-    2: ['Mouse 2'],
+    1: ['Mouse1'],
+    2: ['Mouse2'],
     3: ['Break'],
-    4: ['Mouse 3'],
-    5: ['Mouse 4'],
-    6: ['Mouse 5'],
+    4: ['Mouse3'],
+    5: ['Mouse4'],
+    6: ['Mouse5'],
     8: ['Backspace'],
     9: ['Tab'],
    12: ['Clear'],
@@ -17,15 +17,15 @@ var keys = {
    18: ['Alt'],
    19: ['Pause'],
    20: ['CapsLock'],
-   21: ['IME Hangul'],
-   23: ['IME Junja'],
-   24: ['IME Final'],
-   25: ['IME Kanji'],
+   21: ['IMEHangul'],
+   23: ['IMEJunja'],
+   24: ['IMEFinal'],
+   25: ['IMEKanji'],
    27: ['Escape'],
-   28: ['IME Convert'],
-   29: ['IME Nonconvert'],
-   30: ['IME Accept'],
-   31: ['IME Modechange'],
+   28: ['IMEConvert'],
+   29: ['IMENonconvert'],
+   30: ['IMEAccept'],
+   31: ['IMEModechange'],
    32: ['Space'],
    33: ['PageUp'],
    34: ['PageDown'],
@@ -78,26 +78,26 @@ var keys = {
    88: 'xX',
    89: 'yY',
    90: 'zZ',
-   91: ['Left Win'],
-   92: ['Right Win'],
+   91: ['WinLeft'],
+   92: ['WinRight'],
    93: ['Menu'],
    95: ['Sleep'],
-   96: ['Numpad 0', 'Shift Numpad Insert'],
-   97: ['Numpad 1', 'Shift Numpad End'],
-   98: ['Numpad 2', 'Shift Numpad Down'],
-   99: ['Numpad 3', 'Shift Numpad PageDown'],
-  100: ['Numpad 4', 'Shift Numpad Left'],
-  101: ['Numpad 5', 'Shift Numpad Clear'],
-  102: ['Numpad 6', 'Shift Numpad Right'],
-  103: ['Numpad 7', 'Shift Numpad Home'],
-  104: ['Numpad 8', 'Shift Numpad Up'],
-  105: ['Numpad 9', 'Shift Numpad PageUp'],
-  106: ['Numpad *', 'Shift Numpad *'],
-  107: ['Numpad +', 'Shift Numpad +'],
-  108: ['Numpad Enter', 'Shift Numpad Enter'],
-  109: ['Numpad -', 'Shift Numpad -'],
-  110: ['Numpad .', 'Numpad Delete'],
-  111: ['Numpad /', 'Shift Numpad /'],
+   96: ['Num0', 'NumInsert'],
+   97: ['Num1', 'NumEnd'],
+   98: ['Num2', 'NumDown'],
+   99: ['Num3', 'NumPageDown'],
+  100: ['Num4', 'NumLeft'],
+  101: ['Num5', 'NumClear'],
+  102: ['Num6', 'NumRight'],
+  103: ['Num7', 'NumHome'],
+  104: ['Num8', 'NumUp'],
+  105: ['Num9', 'NumPageUp'],
+  106: ['Num*', 'Num*'],
+  107: ['Num+', 'Num+'],
+  108: ['NumEnter', 'NumEnter'],
+  109: ['Num-', 'Num-'],
+  110: ['Num.', 'NumDelete'],
+  111: ['Num/', 'Num/'],
   112: ['F1'],
   113: ['F2'],
   114: ['F3'],
@@ -124,30 +124,30 @@ var keys = {
   135: ['F24'],
   144: ['NumLock'],
   145: ['ScrollLock'],
-  160: ['Left Shift'],
-  161: ['Right Shift'],
-  162: ['Left Control'],
-  163: ['Right Control'],
-  164: ['Left Alt'],
-  165: ['Right Alt'],
-  166: ['Browser Back'],
-  167: ['Browser Forward'],
-  168: ['Browser Refresh'],
-  169: ['Browser Stop'],
-  170: ['Browser Search'],
-  171: ['Browser Favorites'],
-  172: ['Browser Home'],
-  173: ['Volume Mute'],
-  174: ['Volume Down'],
-  175: ['Volume Up'],
-  176: ['Next Track'],
-  177: ['Prev Track'],
+  160: ['ShiftLeft'],
+  161: ['ShiftRight'],
+  162: ['ControlLeft'],
+  163: ['ControlRight'],
+  164: ['AltLeft'],
+  165: ['AltRight'],
+  166: ['BrowserBack'],
+  167: ['BrowserForward'],
+  168: ['BrowserRefresh'],
+  169: ['BrowserStop'],
+  170: ['BrowserSearch'],
+  171: ['BrowserFavorites'],
+  172: ['BrowserHome'],
+  173: ['VolumeMute'],
+  174: ['VolumeDown'],
+  175: ['VolumeUp'],
+  176: ['NextTrack'],
+  177: ['PrevTrack'],
   178: ['Stop'],
-  179: ['Play/Pause'],
-  180: ['Launch Mail'],
-  181: ['Launch Media Select'],
-  182: ['Launch App1'],
-  183: ['Launch App2'],
+  179: ['PlayPause'],
+  180: ['LaunchMail'],
+  181: ['LaunchMediaSelect'],
+  182: ['LaunchApp1'],
+  183: ['LaunchApp2'],
   186: ';:',
   187: '=+',
   188: ',<',
@@ -161,12 +161,12 @@ var keys = {
   222: '\'"',
   223: ['Meta'],
   226: ['AltGr'],
-  229: ['IME Process'],
+  229: ['IMEProcess'],
   231: ['0x00'],
   246: ['Attention'],
   247: ['Crsel'],
   248: ['Exsel'],
-  249: ['Erase EOF'],
+  249: ['EraseEOF'],
   250: ['Play'],
   251: ['Zoom'],
   252: ['NoName'],
@@ -189,6 +189,7 @@ var shiftNumpad = {
 
 function whatKey(evt){
   var key = keys[evt.keyCode];
+  evt.shift = evt.shiftKey;
   if (key) {
     if (evt.shiftKey) {
       if (evt.keyLocation === 3) {
@@ -197,12 +198,13 @@ function whatKey(evt){
           return keys[mapped][1];
         }
       }
-      return key[+evt.shiftKey] || key[0];
+      return key[1] || key[0];
     } else {
       if (evt.keyLocation === 3) {
         var mapped = shiftNumpad[evt.keyCode];
         if (mapped) {
-          return keys[mapped][evt.keyCode === 13 ? 0 : 1];
+          evt.shift = evt.keyCode !== 13;
+          return keys[mapped][0];
         }
       }
       return key[0];
@@ -223,20 +225,33 @@ function Keyboard(view){
   this.alt = false;
   this.meta = false;
 
+  var down = Object.create(null);
+
   view.addEventListener('keydown', function(e){
     self.update(e);
-    this.lastKey = e.name = whatKey(e);
-    self.emit('down', e);
+    e.name = whatKey(e);
+    if (down[e.name]) {
+      e.action = 'repeat';
+      self.emit(e);
+    } else {
+      e.action = 'activate';
+      down[e.name] = true;
+      self.lastKey = e.name;
+      self.emit(e);
+    }
   }, true);
   view.addEventListener('keyup', function(e){
     self.update(e);
-    this.lastKey = e.name = whatKey(e);
-    self.emit('up', e);
+    e.action = 'release';
+    self.lastKey = e.name = whatKey(e);
+    self.emit(e);
+    down[e.name] = null;
   }, true);
   view.addEventListener('keypress', function(e){
     self.update(e);
-    this.lastKey = e.name = String.fromCharCode(e.keyCode);
-    self.emit('press', e);
+    e.action = 'press';
+    self.lastKey = e.name = String.fromCharCode(e.keyCode);
+    self.emit(e);
   }, true);
 }
 
@@ -254,22 +269,23 @@ Keyboard.prototype = {
   update: function update(evt){
     this.lastEvent = evt;
     this.ctrl = evt.ctrlKey;
-    this.shift = evt.shiftKey;
+    this.shift = evt.shift;
     this.alt = evt.altKey;
     this.meta = evt.metaKey;
+    this.altgr = evt.altGraphKey;
   },
-  emit: function emit(type, evt){
+  emit: function emit(evt){
     var listeners = this.keys['*'];
     if (listeners) {
       for (var i=0; i < listeners.length; i++) {
-        listeners[i](type, evt);
+        listeners[i](evt);
       }
     }
 
     listeners = this.keys[this.lastKey];
     if (listeners) {
       for (var i=0; i < listeners.length; i++) {
-        listeners[i](type, evt);
+        listeners[i](evt);
       }
     }
   },
@@ -282,7 +298,7 @@ Keyboard.prototype = {
     if (bind === '*') {
 
       var listeners = this.keys['*'] || (this.keys['*'] = []);
-      listeners.push(function(type, evt){
+      listeners.push(function(evt){
         listener.call(self, evt);
       });
 
@@ -290,8 +306,8 @@ Keyboard.prototype = {
 
       keys.forEach(function(key, index){
         var listeners = self.keys[key] || (self.keys[key] = []);
-        listeners.push(function(type, evt){
-          if (type === 'down' && events.length === index) {
+        listeners.push(function(evt){
+          if (evt.action === 'activate' && events.length === index) {
             events.push(evt);
             if (index === keys.length - 1) {
               listener.apply(self, events);
@@ -307,15 +323,15 @@ Keyboard.prototype = {
 
       keys.forEach(function(key, index){
         var listeners = self.keys[key] || (self.keys[key] = []);
-        listeners.push(function(type, evt){
-          if (evt.type === 'down') {
+        listeners.push(function(evt){
+          if (evt.action === 'activate') {
             current++;
             events[index] = evt;
             if (events.length === keys.length) {
               listener.apply(self, events);
               events.length = 0;
             }
-          } else if (type === 'up') {
+          } else if (evt.action === 'release') {
             current--;
             events[index] = null;
           }
@@ -324,7 +340,7 @@ Keyboard.prototype = {
 
     } else {
       var listeners = self.keys[bind] || (self.keys[bind] = []);
-      listeners.push(function(type, evt){
+      listeners.push(function(evt){
         listener.call(self, evt);
       });
     }
