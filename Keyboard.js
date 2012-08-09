@@ -195,10 +195,10 @@ function whatKey(evt){
       if (evt.keyLocation === 3) {
         var mapped = shiftNumpad[evt.keyCode];
         if (mapped) {
-          return keys[mapped][1];
+          return keys[mapped][0]//[1];
         }
       }
-      return key[1] || key[0];
+      return key[0]// || key[0];
     } else {
       if (evt.keyLocation === 3) {
         var mapped = shiftNumpad[evt.keyCode];
