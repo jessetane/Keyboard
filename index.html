@@ -25,43 +25,55 @@ html
 <script>
 
 var modifiers = {
-  Alt: true,
-  AltGr: true,
-  Shift: true,
-  Control: true,
-  Meta: true,
+  Alt: 'Alt',
+  AltGr: 'AltGr',
+  Shift: 'Shift',
+  Control:'Control',
+  MetaLeft: 'Meta',
+  MetaRight: 'Meta',
 };
 
-Object.keys(modifiers).forEach(function(mod){
-  var el = document.createElement('li');
-  el.textContent = mod;
-  el.id = mod;
-  mods.appendChild(el);
-  keyboard.on(mod, function(e){
-    if (e.action === 'activate') {
-      el.className = 'active';
-    } else if (e.action === 'release') {
-      el.className = '';
-    }
-  });
+var names = {};
+
+Object.keys(modifiers).forEach(function(key){
+  var mod = modifiers[key];
+  if (mod in names) {
+    modifiers[key] = names[mod];
+  } else {
+    var el = names[mod] = modifiers[key] = document.createElement('li');
+    el.textContent = mod;
+    el.id = mod;
+    mods.appendChild(el);
+  }
 });
 
 
 var engaged = {};
 
 keyboard.on('*', function(e){
-  if (e.action === 'activate' && !(e.name in modifiers)) {
-    engaged[e.name] = true;
-    bind.textContent = Object.keys(engaged).join(' · ');
-  } else if (e.action === 'release' && !(e.name in modifiers)) {
-    delete engaged[e.name];
-    bind.textContent = Object.keys(engaged).join(' · ');
+  if (e.action === 'activate') {
+    if (e.name in modifiers) {
+      modifiers[e.name].className = 'active';
+    } else {
+      engaged[e.name] = true;
+      bind.textContent = Object.keys(engaged).join(' · ');
+    }
+  } else if (e.action === 'release') {
+    if (e.name in modifiers) {
+      modifiers[e.name].className = '';
+    } else {
+      delete engaged[e.name];
+      bind.textContent = Object.keys(engaged).join(' · ');
+    }
   }
 });
 
 window.addEventListener('blur', function(e){
   engaged = {};
   bind.textContent = '';
+  for (var k in modifiers) {
+    modifiers[k].className = '';
+  }
 });
 </script>
   </body>
