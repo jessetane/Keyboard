@@ -81,7 +81,7 @@ var keyNames = {
  Z                 :  90,
  MetaLeft          :  91,
  MetaRight         :  92,
- Menu              :  93,
+ MetaExtra         :  93,
  Sleep             :  95,
  Num0              :  96,
  Num1              :  97,
@@ -161,6 +161,7 @@ var keyNames = {
  ']'               : 221,
  '\\'              : 222,
  Meta              : 223,
+ Meta              : 224,
  AltGr             : 226,
  IMEProcess        : 229,
  0x00              : 231,
@@ -192,6 +193,8 @@ var shiftNumpad = {
   40: 98,
   45: 96,
 };
+
+
 
 function whatKey(evt){
   var key = keyCodes[evt.keyCode];
@@ -288,11 +291,16 @@ Keyboard.prototype = {
       }
     }
   },
-  on: function on(bind, listener){
+  on: function on(bind, filter, listener){
     var self = this,
         current = 0,
         events = [],
         keys = bind.split('->');
+
+    if (!filter) {
+      listener = filter;
+      filter = '';
+    }
 
     if (bind === '*') {
 
@@ -340,12 +348,12 @@ Keyboard.prototype = {
     } else {
       var listeners = self.keys[bind] || (self.keys[bind] = []);
       listeners.push(function(evt){
-        listener.call(self, evt);
+        if (!filter || evt.action === filter)
+          listener.call(self, evt);
       });
     }
   }
 };
 
 window.Keyboard = Keyboard;
-window.keyboard = new Keyboard(window);
 }();
