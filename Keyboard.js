@@ -1,279 +1,33 @@
-'Keyboard' in window || (Keyboard = function(){
-  var keyNames = {
-   Unknown           :   0,
-   Mouse1            :   1,
-   Mouse2            :   2,
-   Break             :   3,
-   Mouse3            :   4,
-   Mouse4            :   5,
-   Mouse5            :   6,
-   ''                :   7,
-   Backspace         :   8,
-   Tab               :   9,
-   ''                :  10,
-   ''                :  11,
-   Clear             :  12,
-   Enter             :  13,
-   ''                :  14,
-   ''                :  15,
-   Shift             :  16,
-   Control           :  17,
-   Alt               :  18,
-   Pause             :  19,
-   CapsLock          :  20,
-   IMEHangul         :  21,
-   ''                :  22,
-   IMEJunja          :  23,
-   IMEFinal          :  24,
-   IMEKanji          :  25,
-   Escape            :  27,
-   IMEConvert        :  28,
-   IMENonconvert     :  29,
-   IMEAccept         :  30,
-   IMEModechange     :  31,
-   Space             :  32,
-   PageUp            :  33,
-   PageDown          :  34,
-   End               :  35,
-   Home              :  36,
-   Left              :  37,
-   Up                :  38,
-   Right             :  39,
-   Down              :  40,
-   Select            :  41,
-   Print             :  42,
-   Execute           :  43,
-   Snapshot          :  44,
-   Insert            :  45,
-   Delete            :  46,
-   Help              :  47,
-   0                 :  48,
-   1                 :  49,
-   2                 :  50,
-   3                 :  51,
-   4                 :  52,
-   5                 :  53,
-   6                 :  54,
-   7                 :  55,
-   8                 :  56,
-   9                 :  57,
-   ''                :  58,
-   ''                :  59,
-   ''                :  60,
-   ''                :  61,
-   ''                :  62,
-   ''                :  63,
-   ''                :  64,
-   A                 :  65,
-   B                 :  66,
-   C                 :  67,
-   D                 :  68,
-   E                 :  69,
-   F                 :  70,
-   G                 :  71,
-   H                 :  72,
-   I                 :  73,
-   J                 :  74,
-   K                 :  75,
-   L                 :  76,
-   M                 :  77,
-   N                 :  78,
-   O                 :  79,
-   P                 :  80,
-   Q                 :  81,
-   R                 :  82,
-   S                 :  83,
-   T                 :  84,
-   U                 :  85,
-   V                 :  86,
-   W                 :  87,
-   X                 :  88,
-   Y                 :  89,
-   Z                 :  90,
-   OSLeft            :  91,
-   OSRight           :  92,
-   MetaExtra         :  93,
-   ''                :  94,
-   Sleep             :  95,
-   Numpad0           :  96,
-   Numpad1           :  97,
-   Numpad2           :  98,
-   Numpad3           :  99,
-   Numpad4           : 100,
-   Numpad5           : 101,
-   Numpad6           : 102,
-   Numpad7           : 103,
-   Numpad8           : 104,
-   Numpad9           : 105,
-   NumpadMultiply    : 106,
-   NumpadAdd         : 107,
-   NumpadEnter       : 108,
-   NumpadSubtract    : 109,
-   NumpadDecimal     : 110,
-   NumpadDivide      : 111,
-   F1                : 112,
-   F2                : 113,
-   F3                : 114,
-   F4                : 115,
-   F5                : 116,
-   F6                : 117,
-   F7                : 118,
-   F8                : 119,
-   F9                : 120,
-   F10               : 121,
-   F11               : 122,
-   F12               : 123,
-   F13               : 124,
-   F14               : 125,
-   F15               : 126,
-   F16               : 127,
-   F17               : 128,
-   F18               : 129,
-   F19               : 130,
-   F20               : 131,
-   F21               : 132,
-   F22               : 133,
-   F23               : 134,
-   F24               : 135,
-   ''                : 136,
-   ''                : 137,
-   ''                : 138,
-   ''                : 139,
-   ''                : 140,
-   ''                : 141,
-   ''                : 142,
-   ''                : 143,
-   NumLock           : 144,
-   ScrollLock        : 145,
-   ''                : 146,
-   ''                : 147,
-   ''                : 148,
-   ''                : 149,
-   ''                : 150,
-   ''                : 151,
-   ''                : 152,
-   ''                : 153,
-   ''                : 154,
-   ''                : 155,
-   ''                : 156,
-   ''                : 157,
-   ''                : 158,
-   ''                : 159,
-   ShiftLeft         : 160,
-   ShiftRight        : 161,
-   ControlLeft       : 162,
-   ControlRight      : 163,
-   AltLeft           : 164,
-   AltRight          : 165,
-   BrowserBack       : 166,
-   BrowserForward    : 167,
-   BrowserRefresh    : 168,
-   BrowserStop       : 169,
-   BrowserSearch     : 170,
-   BrowserFavorites  : 171,
-   BrowserHome       : 172,
-   VolumeMute        : 173,
-   VolumeDown        : 174,
-   VolumeUp          : 175,
-   MediaNextTrack    : 176,
-   MediaPrevTrack    : 177,
-   MediaStop         : 178,
-   MediaPlayPause    : 179,
-   LaunchMail        : 180,
-   SelectMedia       : 181,
-   LaunchApplication1: 182,
-   LaunchApplication2: 183,
-   ''                : 184,
-   ''                : 185,
-   ';'               : 186,
-   '='               : 187,
-   ','               : 188,
-   '-'               : 189,
-   '.'               : 190,
-   '/'               : 191,
-   DeadGrave         : 192,
-   DeadAcute         : 193,
-   DeadCircumflex    : 194,
-   DeadTilde         : 195,
-   DeadMacron        : 196,
-   DeadBreve         : 197,
-   DeadAboveDot      : 198,
-   DeadUmlaut        : 199,
-   DeadAboveRing     : 200,
-   DeadDoubleAcute   : 201,
-   DeadCaron         : 202,
-   ''                : 203,
-   ''                : 204,
-   ''                : 205,
-   ''                : 206,
-   ''                : 207,
-   ''                : 208,
-   ''                : 209,
-   ''                : 210,
-   ''                : 211,
-   ''                : 212,
-   ''                : 213,
-   ''                : 214,
-   DeadCedilla       : 215,
-   DeadOgonek        : 216,
-   ''                : 217,
-   ''                : 218,
-   '['               : 219,
-   '\\'              : 220,
-   ']'               : 221,
-   '\\'              : 222,
-   Meta              : 223,
-   Meta              : 224,
-   ''                : 225,
-   AltGr             : 226,
-   ''                : 227,
-   ''                : 228,
-   IMEProcess        : 229,
-   ''                : 230,
-   '0x00'            : 231,
-   ''                : 232,
-   ''                : 233,
-   ''                : 234,
-   ''                : 235,
-   ''                : 236,
-   ''                : 237,
-   ''                : 238,
-   ''                : 239,
-   ''                : 240,
-   ''                : 241,
-   ''                : 242,
-   ''                : 243,
-   ''                : 244,
-   ''                : 245,
-   Attention         : 246,
-   Crsel             : 247,
-   Exsel             : 248,
-   EraseEOF          : 249,
-   Play              : 250,
-   Zoom              : 251,
-   NoName            : 252,
-   ''                : 253,
-   Clear             : 254,
-   ''                : 255,
-  };
+/*
+ * Keyboard: Makes the keyboard into a first class citizen.
+ *
+ * Copyright (c) 2012 Brandon Benvie <http://bbenvie.com>
+ * Released under MIT license.
+ *
+ * Version: 0.0.3
+ */
 
-  var keyCodes = {};
-  for (var k in keyNames)
-    keyCodes[keyNames[k]] = k;
+ 'Keyboard' in window || (Keyboard = function(keyCodes){
+  var keyNames = {};
 
+  for (var i=0; i < 255; i++) {
+    if (keyCodes[i].length) {
+      keyNames[keyCodes[i]] = i;
+    }
+  }
 
   var shiftNumpad = {
     12: 101,
     13: 108,
     33: 105,
-    34: 99,
-    35: 97,
+    34:  99,
+    35:  97,
     36: 103,
     37: 100,
     38: 104,
     39: 102,
-    40: 98,
-    45: 96,
+    40:  98,
+    45:  96,
   };
 
 
@@ -378,13 +132,14 @@
           events = [],
           keys = bind.split('->');
 
-      if (!filter) {
+      if (!listener) {
         listener = filter;
-        filter = '';
+        filter = 'activate';
       }
 
       if (bind === '*') {
 
+        // wild card listeners for notification on any event
         var listeners = this.keys['*'] || (this.keys['*'] = []);
         listeners.push(function(evt){
           listener.call(self, evt);
@@ -392,6 +147,7 @@
 
       } else if (keys.length > 1) {
 
+        // used an ordered combinator like `a->b->c`
         keys.forEach(function(key, index){
           var listeners = self.keys[key] || (self.keys[key] = []);
           listeners.push(function(evt){
@@ -409,6 +165,7 @@
 
       } else if ((keys = bind.split('+')).length > 1) {
 
+        // used a chorded combinator like `a+b+c`
         keys.forEach(function(key, index){
           var listeners = self.keys[key] || (self.keys[key] = []);
           listeners.push(function(evt){
@@ -427,6 +184,8 @@
         });
 
       } else {
+
+        // bound to a single key
         var listeners = self.keys[bind] || (self.keys[bind] = []);
         listeners.push(function(evt){
           if (!filter || evt.action === filter)
@@ -436,7 +195,7 @@
     }
   };
 
-
+  // normalize KeyboardEvent to function closer to the new spec allowing construction and init dicts
   function KeyboardEventInit(init){
     init = Object(init);
     for (var k in KeyboardEventInit.prototype)
@@ -499,6 +258,7 @@
   }
 
   if ('initKeyEvent' in KBE.prototype) {
+    // found mozilla keyboard initializer (up to around FF14)
     var KeyboardEvent = function KeyboardEvent(type, init){
       var evt = document.createEvent('KeyboardEvent');
       init = new KeyboardEventInit(init);
@@ -509,6 +269,7 @@
       return evt;
     };
   } else {
+    // found IE9/WebKit keyboard event initializer
     var KeyboardEvent = function KeyboardEvent(type, init){
       var evt = document.createEvent('KeyboardEvent');
       init = new KeyboardEventInit(init);
@@ -519,14 +280,12 @@
     };
   }
 
-  Object.defineProperties(KeyboardEvent, {
-    DOM_KEY_LOCATION_STANDARD: { value: 0, enumerable: true },
-    DOM_KEY_LOCATION_LEFT    : { value: 1, enumerable: true },
-    DOM_KEY_LOCATION_RIGHT   : { value: 2, enumerable: true },
-    DOM_KEY_LOCATION_NUMPAD  : { value: 3, enumerable: true },
-    DOM_KEY_LOCATION_MOBILE  : { value: 4, enumerable: true },
-    DOM_KEY_LOCATION_JOYSTICK: { value: 5, enumerable: true },
-  });
+  for (var k in Keyboard.LOCATION) {
+    Object.defineProperty(KeyboardEvent, 'DOM_KEY_LOCATION_'+k, {
+      value: Keyboard.LOCATION[k],
+      enumerable: true
+    });
+  }
 
   KeyboardEvent.prototype = KBE.prototype;
 
@@ -540,4 +299,26 @@
   window.KeyboardEvent = KeyboardEvent;
 
   return Keyboard;
-}());
+}([// the ultimate list of keycodes
+ 'Unknown', 'Mouse1', 'Mouse2', 'Break', 'Mouse3', 'Mouse4', 'Mouse5', '', 'Backspace', 'Tab', '', '',
+ 'Clear', 'Enter', '', '', 'Shift', 'Control', 'Alt', 'Pause', 'CapsLock', 'IMEHangul', '',
+ 'IMEJunja', 'IMEFinal', 'IMEKanji', '', 'Escape', 'IMEConvert', 'IMENonconvert', 'IMEAccept',
+ 'IMEModechange', 'Space', 'PageUp', 'PageDown', 'End', 'Home', 'Left', 'Up', 'Right', 'Down',
+ 'Select', 'Print', 'Execute', 'PrintScreen', 'Insert', 'Delete', 'Help', '0', '1', '2', '3', '4',
+ '5', '6', '7', '8', '9', '', '', '', '', '', '', '', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+ 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+ 'OSLeft', 'OSRight', 'MetaExtra', '', 'Sleep', 'Numpad0', 'Numpad1', 'Numpad2', 'Numpad3',
+ 'Numpad4', 'Numpad5', 'Numpad6', 'Numpad7', 'Numpad8', 'Numpad9', 'NumpadMultiply', 'NumpadAdd',
+ 'NumpadEnter', 'NumpadSubtract', 'NumpadDecimal', 'NumpadDivide', 'F1', 'F2', 'F3', 'F4', 'F5',
+ 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'F13', 'F14', 'F15', 'F16', 'F17', 'F18', 'F19',
+ 'F20', 'F21', 'F22', 'F23', 'F24', '', '', '', '', '', '', '', '', 'NumLock', 'ScrollLock', '',
+ '', '', '', '', '', '', '', '', '', '', '', '', '', 'ShiftLeft', 'ShiftRight', 'ControlLeft',
+ 'ControlRight', 'AltLeft', 'AltRight', 'BrowserBack', 'BrowserForward', 'BrowserRefresh',
+ 'BrowserStop', 'BrowserSearch', 'BrowserFavorites', 'BrowserHome', 'VolumeMute', 'VolumeDown',
+ 'VolumeUp', 'MediaNextTrack', 'MediaPrevTrack', 'MediaStop', 'MediaPlayPause', 'LaunchMail',
+ 'SelectMedia', 'LaunchApplication1', 'LaunchApplication2', '', '', ';', '=', ',', '-', '.', '/',
+ 'DeadGrave', 'DeadAcute', 'DeadCircumflex', 'DeadTilde', 'DeadMacron', 'DeadBreve', 'DeadAboveDot',
+ 'DeadUmlaut', 'DeadAboveRing', 'DeadDoubleAcute', 'DeadCaron', '', '', '', '', '', '', '', '',
+ '', '', '', '', 'DeadCedilla', 'DeadOgonek', '', '', '[', '\\', ']', '\\', 'Meta', 'Meta', '',
+ 'AltGr', '', '', 'IMEProcess', '', '0x00', '', '', '', '', '', '', '', '', '', '', '', '', '',
+ '', 'Attention', 'Crsel', 'Exsel', 'EraseEOF', 'Play', 'Zoom', 'NoName', '', 'Clear', '']));
