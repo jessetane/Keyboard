@@ -30,6 +30,18 @@
     45:  96,
   };
 
+  var left = {
+    16: 160,
+    17: 162,
+    18: 164
+
+  };
+  var right = {
+    16: 161,
+    17: 163,
+    18: 165
+  };
+
 
   function whatKey(evt){
     var key = keyCodes[evt.keyCode];
@@ -41,6 +53,10 @@
           evt.shift = evt.shiftKey && evt.keyCode !== 13;
           return keyCodes[mapped];
         }
+      } else if (evt.keyLocation === 1 && evt.keyCode in left) {
+        key = keyCodes[left[evt.keyCode]];
+      } else if (evt.keyLocation === 2 && evt.keyCode in right) {
+        key = keyCodes[right[evt.keyCode]];
       }
       return key;
     } else if (evt.keyIdentifier) {
