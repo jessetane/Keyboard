@@ -51,6 +51,9 @@ Object.keys(modifiers).forEach(function(key){
 
 var engaged = {};
 
+
+var keyboard = new Keyboard(this);
+
 keyboard.on('*', function(e){
   if (e.action === 'activate') {
     if (e.name in modifiers) {
