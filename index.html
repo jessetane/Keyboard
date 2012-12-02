@@ -25,6 +25,7 @@ html
   padding: 15px; border-radius: 5px; line-height: 50px; height: 50px; }
 </style>
 <script>
+var keyboard = new Keyboard(window);
 
 var modifiers = {
   Alt: 'Alt',
@@ -52,7 +53,6 @@ Object.keys(modifiers).forEach(function(key){
 var engaged = {};
 
 
-var keyboard = new Keyboard(this);
 
 keyboard.on('*', function(e){
   if (e.action === 'activate') {
