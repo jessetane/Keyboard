@@ -7,7 +7,13 @@
  * Version: 0.0.3
  */
 
- 'Keyboard' in window || (Keyboard = function(keyCodes){
+;(function(keyCodes){
+  if ('Keyboard' in window) {
+    if (typeof module != 'undefined' && module && module.exports) {
+      module.exports = window.Keyboard;
+    }
+    return;
+  }
   var keyNames = {};
 
   for (var i=0; i < 255; i++) {
@@ -314,7 +320,12 @@
 
   window.KeyboardEvent = KeyboardEvent;
 
-  return Keyboard;
+
+  if (typeof module != 'undefined' && module && module.exports) {
+    module.exports = Keyboard;
+  } else {
+    window.Keyboard = Keyboard;
+  }
 }([// the ultimate list of keycodes
  'Unknown', 'Mouse1', 'Mouse2', 'Break', 'Mouse3', 'Mouse4', 'Mouse5', '', 'Backspace', 'Tab', '', '',
  'Clear', 'Enter', '', '', 'Shift', 'Control', 'Alt', 'Pause', 'CapsLock', 'IMEHangul', '',
