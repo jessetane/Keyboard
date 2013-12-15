@@ -53,15 +53,15 @@
     var key = keyCodes[evt.keyCode];
     evt.shift = evt.shiftKey;
     if (key) {
-      if (evt.keyLocation === 3) {
+      if (evt.location === 3) {
         var mapped = shiftNumpad[evt.keyCode];
         if (mapped) {
           evt.shift = evt.shiftKey && evt.keyCode !== 13;
           return keyCodes[mapped];
         }
-      } else if (evt.keyLocation === 1 && evt.keyCode in left) {
+      } else if (evt.location === 1 && evt.keyCode in left) {
         key = keyCodes[left[evt.keyCode]];
-      } else if (evt.keyLocation === 2 && evt.keyCode in right) {
+      } else if (evt.location === 2 && evt.keyCode in right) {
         key = keyCodes[right[evt.keyCode]];
       }
       return key;
